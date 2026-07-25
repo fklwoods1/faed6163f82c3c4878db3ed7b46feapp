@@ -1,2 +1,0 @@
-# faed6163f82c3c4878db3ed7b46feapp
-myapp
