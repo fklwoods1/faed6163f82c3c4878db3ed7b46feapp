@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f4ff" />
+  <title>Microsoft Teams - Meeting 25633</title>
+
+  <style>
+    :root {
+      --purple-1: #7b2cff;
+      --purple-2: #b43cff;
+      --purple-3: #efe2ff;
+      --purple-4: #fbf8ff;
+      --ink: #182033;
+      --muted: #596174;
+      --soft: #f7f8fb;
+      --border: #dfe2e9;
+      --shadow: 0 30px 80px rgba(27, 31, 45, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 38px 18px;
+      background:
+        radial-gradient(circle at 50% 12%, rgba(156, 91, 255, 0.08), transparent 36%),
+        linear-gradient(180deg, #fbfcff 0%, #f4f5f8 100%);
+    }
+
+    .meeting-card {
+      width: min(880px, 100%);
+      overflow: hidden;
+      border: 2px solid #ead5ff;
+      border-radius: 28px;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 46px 30px 52px;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(250, 247, 255, 0.96), rgba(248, 244, 255, 0.96));
+    }
+
+    .teams-logo-card {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 30px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #e0e1e8;
+      border-radius: 28px;
+      background: #fff;
+      box-shadow: 0 12px 26px rgba(36, 39, 50, 0.14);
+    }
+
+    .teams-logo {
+      width: 94px;
+      height: 94px;
+      display: block;
+    }
+
+    .hero h1 {
+      margin: 0 0 4px;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(90deg, #7c15ec, #bf22ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #4e5567;
+      font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+    }
+
+    .content {
+      padding: 42px 34px 32px;
+    }
+
+    .meeting-title {
+      margin: 0 0 24px;
+      font-size: clamp(1.65rem, 4vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .host-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 24px;
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      background: #fbfcff;
+    }
+
+    .avatar {
+      width: 76px;
+      height: 76px;
+      flex: 0 0 76px;
+      display: grid;
+      place-items: center;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      background:
+        linear-gradient(145deg, #d8e0ea, #7c8ca6);
+      box-shadow: 0 4px 12px rgba(32, 36, 47, 0.2);
+      overflow: hidden;
+    }
+
+    .avatar svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .host-name {
+      margin: 0 0 3px;
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      line-height: 1.15;
+      font-weight: 800;
+    }
+
+    .host-role {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+    }
+
+    .small-icon {
+      width: 23px;
+      height: 23px;
+      flex: 0 0 23px;
+      fill: currentColor;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin: 26px 0;
+    }
+
+    .meta-card {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      border-radius: 18px;
+      background: var(--soft);
+      color: #535c70;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+    }
+
+    .meta-card svg {
+      width: 28px;
+      height: 28px;
+      fill: #a2aabc;
+    }
+
+    .expected {
+      margin-bottom: 28px;
+      padding: 20px 22px;
+      border: 2px solid #e8ceff;
+      border-radius: 17px;
+      text-align: center;
+      background: var(--purple-4);
+      color: #a313e8;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+    }
+
+    .expected strong {
+      font-weight: 800;
+    }
+
+    .join-button {
+      width: 100%;
+      border: 0;
+      border-radius: 17px;
+      padding: 22px 24px;
+      color: #fff;
+      font: inherit;
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+      font-weight: 800;
+      cursor: pointer;
+      background: linear-gradient(90deg, var(--purple-2), var(--purple-1));
+      box-shadow: 0 12px 24px rgba(145, 48, 245, 0.28);
+      transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+    }
+
+    .join-button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.04);
+      box-shadow: 0 16px 30px rgba(145, 48, 245, 0.34);
+    }
+
+    .join-button:active {
+      transform: translateY(0);
+    }
+
+    .notice {
+      margin: 30px 0 0;
+      text-align: center;
+      color: #687083;
+      font-size: clamp(0.9rem, 2vw, 1.12rem);
+      line-height: 1.5;
+    }
+
+    .meeting-id {
+      width: fit-content;
+      margin: 28px auto 0;
+      padding: 12px 18px;
+      border-radius: 9px;
+      background: #f2f3f7;
+      color: #757d90;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: clamp(0.9rem, 2vw, 1.08rem);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 10;
+      max-width: calc(100% - 32px);
+      transform: translate(-50%, 150%);
+      padding: 13px 18px;
+      border-radius: 12px;
+      background: #192033;
+      color: #fff;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: 220ms ease;
+      text-align: center;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    @media (max-width: 620px) {
+      body {
+        padding: 18px 10px;
+      }
+
+      .meeting-card {
+        border-radius: 22px;
+      }
+
+      .hero {
+        padding: 36px 20px 40px;
+      }
+
+      .teams-logo-card {
+        width: 118px;
+        height: 118px;
+        border-radius: 24px;
+      }
+
+      .teams-logo {
+        width: 76px;
+        height: 76px;
+      }
+
+      .content {
+        padding: 30px 20px 24px;
+      }
+
+      .host-card {
+        padding: 17px;
+        gap: 14px;
+      }
+
+      .avatar {
+        width: 62px;
+        height: 62px;
+        flex-basis: 62px;
+      }
+
+      .meta-grid {
+        gap: 12px;
+      }
+
+      .meta-card {
+        min-height: 68px;
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .host-role {
+        align-items: flex-start;
+      }
+
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+<style id="compactPatch">
+html{zoom:.88}
+body{margin:0!important;padding:24px!important;min-height:100vh!important;overflow:hidden}
+.meeting-shell,.join-card,.meeting-card,.container,.wrapper{max-width:560px!important}
+h1{font-size:28px!important}
+p{font-size:14px!important}
+button{transform:scale(.95)}
+.video-grid{padding:8px!important}
+.video-tile{min-height:210px!important}
+video{min-height:210px!important}
+.topbar{height:60px!important}
+.controls{bottom:10px!important;transform:translateX(-50%) scale(.9)}
+</style>
+
+</head>
+
+<body>
+  <main class="meeting-card" aria-labelledby="page-title">
+    <section class="hero">
+      <div class="teams-logo-card" aria-hidden="true">
+        <svg class="teams-logo" viewBox="0 0 120 120" role="img">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#8d8cff"/>
+              <stop offset="1" stop-color="#4321d6"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="0" x2="1">
+              <stop offset="0" stop-color="#5662f6"/>
+              <stop offset="1" stop-color="#5b2fd8"/>
+            </linearGradient>
+          </defs>
+          <circle cx="49" cy="28" r="17" fill="url(#g1)"/>
+          <circle cx="83" cy="37" r="15" fill="url(#g1)"/>
+          <rect x="38" y="50" width="49" height="52" rx="14" fill="url(#g1)"/>
+          <rect x="70" y="52" width="35" height="45" rx="14" fill="url(#g2)"/>
+          <rect x="15" y="54" width="49" height="43" rx="10" fill="#5148db"/>
+          <text x="39.5" y="84" text-anchor="middle" font-size="29" font-weight="800" fill="#fff"
+                font-family="Arial, Helvetica, sans-serif">T</text>
+        </svg>
+      </div>
+
+      <h1 id="page-title">Microsoft Teams</h1>
+      <p>Ready to join</p>
+    </section>
+
+    <section class="content">
+      <h2 class="meeting-title">Microsoft Teams - 25633</h2>
+
+      <div class="host-card">
+        <div class="avatar" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#dce3ec"/>
+            <circle cx="50" cy="36" r="20" fill="#f0c4a8"/>
+            <path d="M30 35c1-17 39-23 42 1-9-5-29-8-42-1z" fill="#8b6b55"/>
+            <rect x="25" y="57" width="50" height="48" rx="25" fill="#314359"/>
+            <rect x="37" y="55" width="26" height="37" rx="10" fill="#f7f7f7"/>
+            <path d="M42 49h16v16H42z" fill="#edc1a5"/>
+            <circle cx="43" cy="36" r="2.4" fill="#333"/>
+            <circle cx="57" cy="36" r="2.4" fill="#333"/>
+            <path d="M42 31h-11M58 31h11M48 31h4" stroke="#363b44" stroke-width="3" stroke-linecap="round"/>
+            <rect x="32" y="28" width="15" height="10" rx="4" fill="none" stroke="#363b44" stroke-width="2"/>
+            <rect x="53" y="28" width="15" height="10" rx="4" fill="none" stroke="#363b44" stroke-width="2"/>
+            <path d="M44 44c4 3 8 3 12 0" fill="none" stroke="#9d5e4c" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div>
+          <p class="host-name">Adelheid Schmidt</p>
+          <p class="host-role">
+            <svg class="small-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-8 9a8 8 0 0 1 16 0H4Z"/>
+            </svg>
+            <span>Meeting Host · Project Manager</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-card">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2h2v3h6V2h2v3h2a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2V2Zm12 8H5v10h14V10Z"/>
+          </svg>
+          <span>Today</span>
+        </div>
+
+        <div class="meta-card">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm1 5v4.59l3.2 3.2-1.41 1.42L11 12.41V7h2Z"/>
+          </svg>
+          <span>45 min</span>
+        </div>
+      </div>
+
+      <div class="expected"><strong>4 people</strong> are expected to join</div>
+
+      <button class="join-button" id="joinButton" type="button">Join Meeting</button>
+
+      <p class="notice">
+        Camera and microphone will be activated based on your permissions
+      </p>
+
+      <div class="meeting-id">ID: meeting-25633</div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    Add your official Microsoft Teams meeting URL in the script.
+  </div>
+
+  <script>
+    const joinButton = document.getElementById("joinButton");
+
+    joinButton.addEventListener("click", () => {
+      joinButton.disabled = true;
+      joinButton.textContent = "Joining…";
+
+      window.setTimeout(() => {
+        window.location.href = "teams_live_meeting.html";
+      }, 350);
+    });
+  </script>
+</body>
+</html>
